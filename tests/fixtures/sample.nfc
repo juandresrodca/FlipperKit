@@ -1,0 +1,10 @@
+Filetype: Flipper NFC device
+Version: 4
+# Device type can be ISO14443-3A, ISO14443-4A, Mifare Classic, Mifare DESFire...
+Device type: Mifare Classic
+# UID is common for all formats
+UID: 04 A2 26 B1 5C 3D 80
+ATQA: 00 04
+SAK: 08
+Mifare Classic type: 1K
+Data format version: 2

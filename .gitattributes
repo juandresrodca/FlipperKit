@@ -1,0 +1,8 @@
+# Normalize line endings: LF in the repo, native in the working tree.
+* text=auto eol=lf
+
+# Treat Flipper sample artifacts as text too.
+*.nfc  text eol=lf
+*.sub  text eol=lf
+*.rfid text eol=lf
+*.ir   text eol=lf
