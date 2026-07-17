@@ -1,5 +1,36 @@
 # FlipperKit
 
+```
+                                                   __
+                                               _.-~  )
+                                    _..--~~~~,'   ,-/     _
+                                 .-'. . . .'      ,-','    ,
+                               ,'. . . _   ,--~,-'__..-'  ,'
+                             ,'. . .  (@)' ---~~~~      ,'
+                            /. . . . '                 ,-'
+                           ; . . . .- .            ,-'
+                          : . . . .   `.       ,-'. .
+                         . . . . .      `.  ,-' . . .
+                        . . . . .         .' . . . . .
+                       .-.  . . . .     ,'  . . . . .
+                    `._`.`.__. . .  ,-'. . . . . . .
+                       `-.`-'`--...-'`-._ . . . . .
+                          `--..___..--~~~  `-. . .
+                                             `._ .
++============================================================================+
+|                                                                            |
+| >BACKUP         _____ _ _                       _  ___ _              NFC. |
+| >PARSE         |  ___| (_)_ __  _ __   ___ _ __| |/ (_) |_         SubGhz. |
+| >INDEX         | |_  | | | '_ \| '_ \ / _ \ '__| ' /| | __|          RFID. |
+| >REPORT        |  _| | | | |_) | |_) |  __/ |  | . \| | |_        iButton. |
+|                |_|   |_|_| .__/| .__/ \___|_|  |_|\_\_|\__|                |
+|                          |_|   |_|                                         |
+|                                                                            |
+|                         Flipper Zero companion CLI                         |
++============================================================================+
+```
+
+
 A companion command-line toolkit for the [Flipper Zero](https://flipperzero.one/).
 Back up the SD card, parse captured artifacts, index them into SQLite, and
 generate shareable reports — the things the mobile app does poorly or not at all.
@@ -87,6 +118,10 @@ flipperkit index ./backups --db flipperkit.db
 # Generate a report
 flipperkit report --db flipperkit.db --format html --out report.html
 flipperkit report --db flipperkit.db --format md --category subghz
+
+# Update to the latest version (when installed from a git clone)
+flipperkit update --check   # see if a newer version is available
+flipperkit update          # pull and apply it
 ```
 
 No device handy? The pipeline works on any folder of Flipper files — try it on

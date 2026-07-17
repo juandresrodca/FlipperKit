@@ -47,6 +47,7 @@ COMMAND_EXAMPLES = {
     "parse": "flipperkit parse ./backups",
     "index": "flipperkit index ./backups --db flipperkit.db",
     "report": "flipperkit report --db flipperkit.db --format html --out report.html",
+    "update": "flipperkit update",
 }
 
 
@@ -202,6 +203,72 @@ def index(
         f"updated [cyan]{counts['updated']}[/cyan]. "
         f"Index now holds {totals['total']} artifact(s)."
     )
+
+
+@app.command()
+def update(
+    check_only: bool = typer.Option(False, "--check", help="Only check for updates; don't apply."),
+    force: bool = typer.Option(False, "--force", help="Update even with uncommitted local changes."),
+) -> None:
+    """Check the git repo for a newer version and update in place."""
+    import subprocess
+    import sys
+
+    from . import updater
+
+    root = updater.repo_root()
+    run = updater.git_runner(root)
+
+    if not updater.is_git_repo(run):
+        console.print(
+            "[yellow]FlipperKit was not installed from a git clone,[/yellow] so it can't "
+            "self-update. Reinstall from source: [green]pip install --upgrade "
+            "git+https://github.com/juandresrodca/FlipperKit[/green]"
+        )
+        raise typer.Exit(code=1)
+
+    remote = updater.remote_url(run) or "origin"
+    branch = updater.current_branch(run) or "main"
+    console.print(f"Checking [cyan]{remote}[/cyan] (origin/{branch}) for updates ...")
+    status = updater.check(run)
+
+    if not status.fetched:
+        console.print(f"[red]Could not reach the remote:[/red] {status.fetch_error}")
+        console.print("[yellow]Check your network/credentials and try again.[/yellow] "
+                      "(Not reporting 'up to date' from stale local data.)")
+        raise typer.Exit(code=1)
+
+    if status.behind == 0:
+        console.print(f"[green]Already up to date[/green] ({__version__}, {status.local}, "
+                      f"branch {status.branch}).")
+        return
+
+    console.print(f"Update available: [bold]{status.behind}[/bold] new commit(s) on "
+                  f"origin/{status.branch}.")
+    if check_only:
+        console.print("Run [green]flipperkit update[/green] to apply.")
+        return
+
+    if status.dirty and not force:
+        console.print("[yellow]You have uncommitted local changes.[/yellow] Commit or stash "
+                      "them, or re-run with [green]flipperkit update --force[/green].")
+        raise typer.Exit(code=1)
+
+    ok, message = updater.pull(run)
+    if not ok:
+        console.print(f"[red]Update failed:[/red] {message}")
+        raise typer.Exit(code=1)
+
+    new_sha = updater.short_sha(run)
+    console.print(f"[green]Updated[/green] {status.local} -> {new_sha}.")
+
+    # If dependencies changed, sync them (editable install picks up code automatically).
+    _, changed = run("diff", "--name-only", f"{status.local}", "HEAD")
+    if "pyproject.toml" in changed:
+        console.print("Dependencies changed - syncing with pip ...")
+        subprocess.run([sys.executable, "-m", "pip", "install", "-e", str(root), "-q"])
+
+    console.print("Restart flipperkit to use the new version.")
 
 
 @app.command("report")
