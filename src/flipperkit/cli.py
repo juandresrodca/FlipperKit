@@ -7,16 +7,47 @@ from typing import Optional
 
 import typer
 from rich.console import Console
+from rich.panel import Panel
 from rich.table import Table
+from typer.core import TyperGroup
 
 from . import __version__, db, parsers, report
 from .backup import sync
 
+console = Console()
+
+
+class BannerGroup(TyperGroup):
+    """Top-level group that prints the ASCII banner above `--help`.
+
+    Only the root group uses this class, so subcommand help (e.g.
+    `flipperkit info --help`) stays clean and banner-free.
+    """
+
+    def format_help(self, ctx, formatter) -> None:
+        from .banner import render_banner
+
+        render_banner(console)
+        super().format_help(ctx, formatter)
+
+
 app = typer.Typer(
+    cls=BannerGroup,
     add_completion=False,
     help="A companion CLI toolkit for the Flipper Zero: backup, parse, index and report.",
 )
-console = Console()
+
+# A concrete, copy-pasteable example for each command, shown when a command is
+# invoked incorrectly (instead of the bare "Try '... --help'" hint).
+COMMAND_EXAMPLES = {
+    "version": "flipperkit version",
+    "devices": "flipperkit devices",
+    "info": "flipperkit info --port COM3",
+    "backup": "flipperkit backup ./backups --port COM3 --root /ext/nfc",
+    "parse": "flipperkit parse ./backups",
+    "index": "flipperkit index ./backups --db flipperkit.db",
+    "report": "flipperkit report --db flipperkit.db --format html --out report.html",
+}
 
 
 def _load_client(port: str, baudrate: int):
@@ -50,11 +81,30 @@ def devices() -> None:
         console.print("[yellow]No serial ports found.[/yellow] Is the Flipper plugged in?")
         return
     table = Table(title="Serial ports")
-    table.add_column("Device", style="cyan")
+    table.add_column("Device")
     table.add_column("Description")
-    for device, description in ports:
-        table.add_row(device, description)
+    table.add_column("")
+    flipper_ports = []
+    for device, description, is_flipper in ports:
+        if is_flipper:
+            flipper_ports.append(device)
+            table.add_row(
+                f"[bold green]{device}[/bold green]",
+                f"[bold green]{description}[/bold green]",
+                "[bold green]<- Flipper[/bold green]",
+            )
+        else:
+            table.add_row(f"[cyan]{device}[/cyan]", description, "")
     console.print(table)
+
+    if len(flipper_ports) == 1:
+        console.print(f"\nFlipper detected on [bold green]{flipper_ports[0]}[/bold green] - "
+                      f"use it as [green]--port {flipper_ports[0]}[/green].")
+    elif len(flipper_ports) > 1:
+        console.print(f"\n[yellow]Multiple Flipper-like ports:[/yellow] {', '.join(flipper_ports)}. "
+                      "Pass the right one with --port.")
+    else:
+        console.print("\n[dim]No Flipper detected. Plug it in, unlock it, and close qFlipper.[/dim]")
 
 
 @app.command()
@@ -154,7 +204,7 @@ def index(
     )
 
 
-@app.command()
+@app.command("report")
 def report_cmd(
     database: Path = typer.Option(Path("flipperkit.db"), "--db", help="SQLite index path."),
     fmt: str = typer.Option("html", "--format", "-f", help="html | md | json."),
@@ -182,12 +232,48 @@ def report_cmd(
         print(rendered)
 
 
-# `report` is a reserved-feeling name; expose the command as `report` in the CLI.
-app.command(name="report")(report_cmd)
+def _show_usage_error(exc) -> None:
+    """Render a usage error with a concrete example instead of a bare help hint."""
+    ctx = getattr(exc, "ctx", None)
+    if ctx is not None:
+        console.print(ctx.get_usage(), style="dim")
+    console.print(
+        Panel(exc.format_message(), title="Error", title_align="left",
+              border_style="red", padding=(0, 1))
+    )
+
+    command = getattr(ctx, "command", None) if ctx else None
+    example = COMMAND_EXAMPLES.get(getattr(command, "name", None))
+    if example:
+        console.print(
+            Panel(f"[green]{example}[/green]", title="Example", title_align="left",
+                  border_style="green", padding=(0, 1))
+        )
+    else:
+        # Group-level error (e.g. unknown command): point at the command list.
+        console.print("Try [green]flipperkit --help[/green] to see all commands.")
 
 
 def main() -> None:
-    app()
+    """Entry point. Intercepts usage errors to show a real example."""
+    import sys
+
+    import click
+    from typer.main import get_command
+
+    command = get_command(app)
+    try:
+        code = command(standalone_mode=False)
+    except click.UsageError as exc:
+        _show_usage_error(exc)
+        sys.exit(exc.exit_code or 2)
+    except click.ClickException as exc:
+        exc.show()
+        sys.exit(exc.exit_code)
+    except click.exceptions.Abort:
+        console.print("[red]Aborted.[/red]")
+        sys.exit(1)
+    sys.exit(code if isinstance(code, int) else 0)
 
 
 if __name__ == "__main__":

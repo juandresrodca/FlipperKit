@@ -27,15 +27,44 @@ The Flipper stores everything as small text files on its SD card (`.nfc`, `.sub`
 
 ## Install
 
+Requires Python 3.9+.
+
+### Quick install (use it as a command)
+
+Installs `flipperkit` as a normal command available from any terminal:
+
+```bash
+git clone https://github.com/juandresrodca/FlipperKit
+cd FlipperKit
+pip install -e .
+```
+
+The `-e` (editable) flag points the command at your source folder, so code
+changes take effect immediately — no reinstall needed. Then, from any directory:
+
+```bash
+flipperkit --help
+```
+
+> **Windows note:** the `flipperkit` command lands in your Python `Scripts`
+> directory. If the shell can't find it, that directory isn't on your `PATH` —
+> either add it, or run the tool with `python -m flipperkit ...`.
+>
+> **Uninstall:** `pip uninstall flipperkit`
+
+### Isolated / dev install
+
+To keep FlipperKit and its dependencies out of your global Python, use a virtual
+environment. Add `[dev]` to also install the test dependencies (`pytest`):
+
 ```bash
 git clone https://github.com/juandresrodca/FlipperKit
 cd FlipperKit
 python -m venv .venv && . .venv/Scripts/activate   # Windows
 # source .venv/bin/activate                         # macOS / Linux
 pip install -e ".[dev]"
+pytest
 ```
-
-Requires Python 3.9+.
 
 ## Usage
 

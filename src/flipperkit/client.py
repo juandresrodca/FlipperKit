@@ -25,16 +25,36 @@ except ImportError:  # pragma: no cover - exercised only without pyserial
 
 PROMPT = b">: "
 
+# The Flipper Zero enumerates as an STMicroelectronics Virtual COM Port.
+FLIPPER_VID = 0x0483
+FLIPPER_PID = 0x5740
+FLIPPER_DESC_HINTS = ("flipper", "stmicroelectronics")
+
 
 class FlipperError(RuntimeError):
     """Raised when the device is unreachable or returns an error."""
 
 
-def available_ports() -> List[Tuple[str, str]]:
-    """Return ``(device, description)`` for each serial port on the system."""
+def is_flipper_port(port) -> bool:
+    """Heuristically decide whether a pyserial port is a Flipper Zero.
+
+    Matches on the STM32 USB VID/PID first (most reliable), then falls back to
+    the port description / manufacturer text, which on Windows reads
+    "STMicroelectronics Virtual COM Port".
+    """
+    if getattr(port, "vid", None) == FLIPPER_VID and getattr(port, "pid", None) == FLIPPER_PID:
+        return True
+    haystack = " ".join(
+        filter(None, (port.description, getattr(port, "manufacturer", None), getattr(port, "product", None)))
+    ).lower()
+    return any(hint in haystack for hint in FLIPPER_DESC_HINTS)
+
+
+def available_ports() -> List[Tuple[str, str, bool]]:
+    """Return ``(device, description, is_flipper)`` for each serial port."""
     if list_ports is None:
         raise FlipperError("pyserial is not installed; run `pip install pyserial`.")
-    return [(p.device, p.description) for p in list_ports.comports()]
+    return [(p.device, p.description, is_flipper_port(p)) for p in list_ports.comports()]
 
 
 class FlipperClient:
