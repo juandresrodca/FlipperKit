@@ -51,10 +51,10 @@ generate shareable reports — the things the mobile app does poorly or not at a
 The Flipper stores everything as small text files on its SD card (`.nfc`, `.sub`,
 `.rfid`, `.ir`, …). Over time that turns into an unsearchable pile. FlipperKit:
 
-- **Backs up** the SD card over the serial CLI, skipping unchanged files.
-- **Parses** each artifact into a normalized record (category, protocol, UID/key, frequency…).
-- **Indexes** records in SQLite, de-duplicated by SHA-256.
-- **Reports** the collection as a clean HTML page, Markdown table, or JSON.
+- **Backs up** the SD card over the serial  CLI, skipping unchanged files.
+- **Parses** each artifact into a normalized  record (category, protocol, UID/key, frequency…).
+- **Indexes** records in SQLite, de-duplicated  by SHA-256.
+- **Reports** the collection as a clean HTML  page, Markdown table, or JSON.
 
 ## Install
 
