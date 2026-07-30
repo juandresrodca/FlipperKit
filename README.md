@@ -77,15 +77,15 @@ changes take effect immediately — no reinstall needed. Then, from any director
 flipperkit --help
 ```
 
-> **Windows note:** the `flipperkit` command lands in your Python `Scripts`
-> directory. If the shell can't find it, that directory isn't on your `PATH` —
+> **Windows note:** the `flipperkit` command lands in your  Python `Scripts`
+> directory. If the shell can't find it, that directory isn't  on your `PATH` —
 > either add it, or run the tool with `python -m flipperkit ...`.
 >
 > **Uninstall:** `pip uninstall flipperkit`
 
 ### Isolated / dev install
 
-To keep FlipperKit and its dependencies out of your global Python, use a virtual
+To keep FlipperKit and its dependencies out of your global Python , use a virtual
 environment. Add `[dev]` to also install the test dependencies (`pytest`):
 
 ```bash
