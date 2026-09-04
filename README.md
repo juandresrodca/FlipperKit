@@ -56,6 +56,20 @@ The Flipper stores everything as small text files on  its SD card (`.nfc`, `.sub
 - **Indexes** records in SQLite, de-duplicated  by SHA-256.
 - **Reports** the collection as a clean HTML  page, Markdown table or JSON.
 
+## Screenshots
+
+`flipperkit --help` — the dolphin banner and command list:
+
+![flipperkit --help](docs/screenshots/banner.svg)
+
+`flipperkit devices` — auto-detects and highlights your Flipper's serial port:
+
+![flipperkit devices](docs/screenshots/devices.svg)
+
+`flipperkit parse ./backups` — captured artifacts parsed into a searchable table:
+
+![flipperkit parse](docs/screenshots/parse.svg)
+
 ## Install
 
 Requires Python 3.9+.
