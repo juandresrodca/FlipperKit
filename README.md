@@ -78,7 +78,7 @@ flipperkit --help
 ```
 
 > **Windows note:** the `flipperkit` command lands in your  Python `Scripts`
-> directory. If the shell can't find it, that directory isn't  on your `PATH` —
+> directory. If the shell can't find it, that directory isn't  on your `PATH`  
 > either add it, or run the tool with `python -m flipperkit ...`.
 >
 > **Uninstall:** `pip uninstall flipperkit`
@@ -124,7 +124,7 @@ flipperkit update --check   # see if a newer version is available
 flipperkit update          # pull and apply it
 ```
 
-No device handy? The pipeline works on any folder of Flipper files — try it on
+No device handy? The pipeline works on any folder of Flipper files. try it on
 the bundled samples:
 
 ```bash
