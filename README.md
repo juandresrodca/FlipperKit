@@ -33,10 +33,10 @@
 
 A companion command-line toolkit for the [Flipper Zero](https://flipperzero.one/).
 Back up the SD card, parse captured artifacts, index them into SQLite, and
-generate shareable reports — the things the mobile app does poorly or not at all.
+generate shareable reports — the things the  mobile app does poorly or not at all.
 
 > **Built for engineers, not just users.** Where the official app lets you *use*
-> the device, FlipperKit treats what it captures as **data to manage**: versioned
+> the device, FlipperKit treats what it captures  as **data to manage**: versioned
 > backups, a searchable index, and reports you can hand to someone else.
 
 ```
@@ -48,7 +48,7 @@ generate shareable reports — the things the mobile app does poorly or not at a
 
 ## Why this exists
 
-The Flipper stores everything as small text files on  its SD card (`.nfc`, `.sub`,
+The Flipper stores everything as small text  files on  its SD card (`.nfc`, `.sub`,
 `.rfid`, `.ir`, …). Over time that turns into an unsearchable pile. FlipperKit:
 
 - **Backs up** the SD card over the serial  CLI, skipping unchanged files.
