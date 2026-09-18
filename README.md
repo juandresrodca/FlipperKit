@@ -184,6 +184,16 @@ test. It does not exploit anything — it organizes files the Flipper already wr
 Cloning, replaying, or reading credentials you do not own may be illegal in your
 jurisdiction. Use it for learning, lab work, and authorized assessments only.
 
+## Contributing
+
+Most of this repository can be worked on **without a Flipper Zero** — the
+hardware boundary is one module and everything else is tested against files on
+disk. [CONTRIBUTING.md](CONTRIBUTING.md) has the setup, a worked example of
+adding a parser, and the rule that fixtures must be synthetic. Three open issues
+are labelled *good first issue*.
+
+Participation is governed by the [Code of Conduct](CODE_OF_CONDUCT.md).
+
 ## License
 
 [MIT](LICENSE)
