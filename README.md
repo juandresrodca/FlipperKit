@@ -192,7 +192,9 @@ disk. [CONTRIBUTING.md](CONTRIBUTING.md) has the setup, a worked example of
 adding a parser, and the rule that fixtures must be synthetic. Three open issues
 are labelled *good first issue*.
 
-Participation is governed by the [Code of Conduct](CODE_OF_CONDUCT.md).
+Participation is governed by the [Code of Conduct](CODE_OF_CONDUCT.md), and
+anything a user would notice belongs in [CHANGELOG.md](CHANGELOG.md) under
+*Unreleased* in the same pull request.
 
 ## License
 
