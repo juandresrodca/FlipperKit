@@ -184,6 +184,12 @@ test. It does not exploit anything — it organizes files the Flipper already wr
 Cloning, replaying, or reading credentials you do not own may be illegal in your
 jurisdiction. Use it for learning, lab work, and authorized assessments only.
 
+[SECURITY.md](SECURITY.md) covers the other half of that: where the tool's own
+surface actually is — the backup destination path, the parsers, the Markdown
+renderer, `flipperkit update` — and how to report a problem in it privately. Worth a
+read before you point `--port` at anything, because your index and your reports hold
+the key material your captures came with.
+
 ## Contributing
 
 Most of this repository can be worked on **without a Flipper Zero** — the
@@ -194,7 +200,8 @@ are labelled *good first issue*.
 
 Participation is governed by the [Code of Conduct](CODE_OF_CONDUCT.md), and
 anything a user would notice belongs in [CHANGELOG.md](CHANGELOG.md) under
-*Unreleased* in the same pull request.
+*Unreleased* in the same pull request. Anything that looks like a vulnerability
+goes through [SECURITY.md](SECURITY.md) instead of the issue tracker.
 
 ## License
 

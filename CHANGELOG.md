@@ -18,6 +18,10 @@ Nothing in this section changes behaviour — everything released so far is in
   of adding a parser end to end, and the rule that every fixture must be
   synthetic.
 - `CODE_OF_CONDUCT.md` (Contributor Covenant 2.1).
+- `SECURITY.md`: how to report privately, what is supported, and the six places
+  the tool's surface actually is — the unchecked backup destination path (#7),
+  the parsers, the unescaped Markdown renderer, `flipperkit update`, the key
+  material sitting in the index and the reports, and the serial port itself.
 - Terminal screenshots in the README, rendered as SVG under `docs/screenshots/`
   so they stay legible on both GitHub themes and cost no raster bytes.
 - This changelog.
