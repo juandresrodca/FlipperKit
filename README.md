@@ -138,6 +138,11 @@ flipperkit update --check   # see if a newer version is available
 flipperkit update          # pull and apply it
 ```
 
+The port is `COM3`-style on Windows, `/dev/cu.usbmodemflip_<name>1` on macOS and
+`/dev/ttyACM0` on Linux. [docs/serial-ports.md](docs/serial-ports.md) has the per-OS
+detail — udev rules and the ModemManager clash on Linux, `cu.` versus `tty.` on macOS,
+and what to check when `devices` finds nothing.
+
 No device handy? The pipeline works on any folder of Flipper files. try it on
 the bundled samples:
 

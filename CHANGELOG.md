@@ -22,6 +22,11 @@ Nothing in this section changes behaviour — everything released so far is in
   the tool's surface actually is — the unchecked backup destination path (#7),
   the parsers, the unescaped Markdown renderer, `flipperkit update`, the key
   material sitting in the index and the reports, and the serial port itself.
+- `docs/serial-ports.md`: what the Flipper enumerates as on USB, the port naming
+  and permission model on Windows, macOS and Linux (including the udev rule that
+  stops ModemManager probing the port), and the three gaps in `is_flipper_port()`
+  that auto-detection has to close first (#1). Linked from the README usage
+  section.
 - Terminal screenshots in the README, rendered as SVG under `docs/screenshots/`
   so they stay legible on both GitHub themes and cost no raster bytes.
 - This changelog.
