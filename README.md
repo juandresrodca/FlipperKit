@@ -143,6 +143,10 @@ The port is `COM3`-style on Windows, `/dev/cu.usbmodemflip_<name>1` on macOS and
 detail — udev rules and the ModemManager clash on Linux, `cu.` versus `tty.` on macOS,
 and what to check when `devices` finds nothing.
 
+[docs/recipes.md](docs/recipes.md) is the same commands assembled into workflows — a
+dated weekly backup, the SQL that answers *what is new since last time*, and how to
+hand the contents of a card to somebody who does not have FlipperKit installed.
+
 No device handy? The pipeline works on any folder of Flipper files. try it on
 the bundled samples:
 

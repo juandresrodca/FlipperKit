@@ -12,6 +12,16 @@ patch releases will not.
 Nothing in this section changes behaviour — everything released so far is in
 `0.1.0`. The entries below are the project scaffolding added since the tag.
 
+### Known issues
+
+- **A fresh install cannot run any command.** `cli.py` imports `click` directly but
+  `pyproject.toml` never declared it; Typer supplied it transitively until `0.26.0`
+  dropped the dependency and vendored click privately. Every command now raises
+  `ModuleNotFoundError: No module named 'click'` on a clean environment, and the test
+  suite does not catch it because nothing exercises the entry point
+  ([#8](https://github.com/juandresrodca/FlipperKit/issues/8)). `pip install click`
+  is the workaround until `click` is declared.
+
 ### Added
 
 - `CONTRIBUTING.md`: repository layout, the hardware boundary, a worked example
@@ -27,6 +37,12 @@ Nothing in this section changes behaviour — everything released so far is in
   stops ModemManager probing the port), and the three gaps in `is_flipper_port()`
   that auto-detection has to close first (#1). Linked from the README usage
   section.
+- `docs/recipes.md`: the commands assembled into workflows — a dated weekly backup
+  that relies on size-skip and SHA-256 deduplication being idempotent, the SQL for
+  *what is new since last time* and *what did the parser fail to label*, filtered
+  reports, the two different JSON shapes `parse` and `report` emit, and scheduling
+  on Task Scheduler and cron. Every recipe was run against `tests/fixtures/` before
+  being written. Linked from the README usage section.
 - Terminal screenshots in the README, rendered as SVG under `docs/screenshots/`
   so they stay legible on both GitHub themes and cost no raster bytes.
 - This changelog.
