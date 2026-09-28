@@ -1,0 +1,18 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Report a security problem privately
+    url: https://github.com/juandresrodca/FlipperKit/security/advisories/new
+    about: >
+      Anything touching the backup destination path, the parsers, the Markdown renderer
+      or `flipperkit update` — and anything you would rather not discuss in public.
+      SECURITY.md has the scope. Never open a public issue for one of these.
+  - name: The port is not detected
+    url: https://github.com/juandresrodca/FlipperKit/issues/1
+    about: >
+      Auto-detection is tracked in #1 and it needs data. Add the full `flipperkit devices`
+      output and your OS there rather than opening a new issue.
+  - name: How to set up, test and submit a change
+    url: https://github.com/juandresrodca/FlipperKit/blob/master/CONTRIBUTING.md
+    about: >
+      Most of this repository can be worked on without a Flipper Zero. Three open issues
+      are labelled good first issue.

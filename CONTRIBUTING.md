@@ -150,7 +150,10 @@ directory full of other people's badge IDs would make that a lie.
 
 ## Reporting a bug
 
-Open an [issue](https://github.com/juandresrodca/FlipperKit/issues) with:
+Open an [issue](https://github.com/juandresrodca/FlipperKit/issues/new/choose) and pick
+**Bug report**; the form asks for everything below, so nothing gets missed. Use
+**Support a new artifact type** if you are proposing a parser rather than reporting a
+fault. Either way, what a maintainer needs is:
 
 - the command you ran and the full output,
 - your OS and Python version (`python --version`),

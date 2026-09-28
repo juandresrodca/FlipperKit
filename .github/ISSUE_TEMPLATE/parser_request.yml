@@ -1,0 +1,111 @@
+name: "🧩 Support a new artifact type"
+description: Ask for a parser, or claim one and say what you found in the file format.
+title: "[parser] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Adding a parser is the most common contribution here, and it needs no Flipper Zero —
+        only a file the Flipper wrote. CONTRIBUTING has the
+        [worked example](https://github.com/juandresrodca/FlipperKit/blob/master/CONTRIBUTING.md#adding-a-parser--worked-example):
+        map the extension in `EXT_CATEGORY`, add a branch to `_extract()`, add a synthetic
+        fixture, add a test, update the README table.
+
+        The part that cannot be guessed from the outside is **what the file actually
+        contains**. That is what this form is for. Fill in what you know; an issue that
+        only names the extension is still useful.
+
+  - type: input
+    id: extension
+    attributes:
+      label: File extension
+      placeholder: ".u2f"
+    validations:
+      required: true
+
+  - type: input
+    id: category
+    attributes:
+      label: Category it should index under
+      description: The value that would go in `EXT_CATEGORY`, and the one people will filter reports by.
+      placeholder: u2f
+    validations:
+      required: true
+
+  - type: textarea
+    id: sample
+    attributes:
+      label: A synthetic sample of the format
+      description: >
+        The header and enough keys to show the shape. **Invent every identifier** — no real
+        UID, key, rolling code or card data. This is the same rule the fixtures follow, and
+        it is what makes the repository's legal position honest.
+      render: text
+      placeholder: |
+        Filetype: Flipper U2F Key
+        Version: 1
+        Key: 00 00 00 00 00 12 34 56
+    validations:
+      required: true
+
+  - type: textarea
+    id: fields
+    attributes:
+      label: Which keys map to which record fields
+      description: >
+        The `_extract()` contract is `(subtype, identifier, frequency, extra)` — `subtype` is
+        what a human would call the protocol or device type, `identifier` is what you would
+        search for, `frequency` is `None` for anything that is not sub-GHz, and `extra` is
+        category-specific metadata. Say which key you would pull for each, and why.
+      placeholder: |
+        subtype    -> Filetype, because the format does not carry a protocol field
+        identifier -> Key
+        frequency  -> None (not sub-GHz)
+        extra      -> Counter, which is the only field that changes between captures
+    validations:
+      required: true
+
+  - type: dropdown
+    id: repeated
+    attributes:
+      label: Does the format repeat any key?
+      description: >
+        Infrared files repeat `name:` once per stored signal, which is why `all_values()`
+        exists. A format that does the same should use it rather than `first()`.
+      options:
+        - "No — every key appears once"
+        - "Yes — at least one key repeats"
+        - "Not sure"
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Where the sample came from
+      description: >
+        Which firmware wrote it, and whether you opened a real file or worked from
+        documentation. Formats drift between firmware forks.
+      placeholder: Official firmware 1.3.4, from a file on my own device
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Before you submit
+      options:
+        - label: Every identifier in the sample above is invented.
+          required: true
+        - label: The artifact came from my own device, or from one I am explicitly authorised to test.
+          required: true
+        - label: I have checked the README's **Supported artifacts** table and this extension is not already covered.
+          required: true
+  - type: checkboxes
+    id: claiming
+    attributes:
+      label: Optional
+      options:
+        - label: I would like to write this parser myself.
+          required: false

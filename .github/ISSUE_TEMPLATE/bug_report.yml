@@ -1,0 +1,115 @@
+name: "🐛 Bug report"
+description: Something FlipperKit does is wrong, crashes, or silently does nothing.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Two things make a FlipperKit bug cheap to fix, and both are easy to forget:
+        **the full command and its full output**, and **whether a Flipper was attached**.
+        The hardware boundary is one module, so knowing which side of it you were on
+        usually halves the search.
+
+        If this is a parsing bug, attach a **synthetic** file that reproduces it —
+        invented UIDs and keys, never a real capture. That rule is not negotiable here;
+        see [CONTRIBUTING.md](https://github.com/juandresrodca/FlipperKit/blob/master/CONTRIBUTING.md#fixtures-must-be-synthetic).
+
+  - type: dropdown
+    id: command
+    attributes:
+      label: Which command
+      options:
+        - devices
+        - info
+        - backup
+        - parse
+        - index
+        - report
+        - update
+        - install / import (it fails before any command runs)
+        - something else
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: What you ran and what came back
+      description: The exact command line and the complete output, including the traceback if there was one. Redact paths if you need to, but say that you did.
+      render: shell
+      placeholder: |
+        $ flipperkit parse ./backups
+        Traceback (most recent call last):
+          ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected instead
+      description: One or two lines. Obvious to you is rarely obvious to a reader.
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: FlipperKit version and how you installed it
+      description: "`pip show flipperkit` gives the version; say whether it was `pip install -e .` from a clone or something else."
+      placeholder: 0.3.0, editable install from a git clone
+    validations:
+      required: true
+
+  - type: input
+    id: platform
+    attributes:
+      label: OS and Python version
+      description: "`python --version`, and the OS with its version."
+      placeholder: Windows 11 24H2, Python 3.12.4
+    validations:
+      required: true
+
+  - type: dropdown
+    id: hardware
+    attributes:
+      label: Was a Flipper Zero attached?
+      description: >
+        Everything except `client.py` is meant to run with no device present, so this
+        tells us which half of the codebase to look at first.
+      options:
+        - "No — it failed against files on disk"
+        - "Yes — the failure involves the device or the serial port"
+    validations:
+      required: true
+
+  - type: input
+    id: firmware
+    attributes:
+      label: Flipper firmware version (device bugs only)
+      description: >
+        Settings → About on the device. Leave blank if no device was involved. Also paste
+        the full `flipperkit devices` output in the box above if the port is the problem —
+        that is the data [#1](https://github.com/juandresrodca/FlipperKit/issues/1) needs.
+      placeholder: Official 1.3.4, or Momentum 008
+
+  - type: textarea
+    id: artifact
+    attributes:
+      label: A synthetic file that reproduces it (parsing bugs only)
+      description: >
+        Paste the file's contents, with every identifier invented.
+        `00 00 00 00 00 12 34 56` is a perfectly good key for a bug report.
+      render: text
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Before you submit
+      options:
+        - label: The output above is complete — I have not trimmed the part before the error.
+          required: true
+        - label: Any file or capture I attached is synthetic. It contains no real UID, key or card data.
+          required: true
+        - label: This is not a security problem. Those go through [Security → Report a vulnerability](https://github.com/juandresrodca/FlipperKit/security/advisories/new) instead.
+          required: true
