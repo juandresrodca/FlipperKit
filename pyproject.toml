@@ -23,6 +23,9 @@ dependencies = [
     "typer>=0.9",
     "rich>=13.0",
     "pyserial>=3.5",
+    # cli.py uses click's public API directly (see main()); Typer stopped bundling
+    # click in 0.26, so it must be declared rather than relied on transitively (#8).
+    "click>=8.0",
 ]
 
 [project.optional-dependencies]

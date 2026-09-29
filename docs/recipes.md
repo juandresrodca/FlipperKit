@@ -4,13 +4,6 @@ Copy-paste workflows for the things people actually do with a Flipper's SD card:
 keep it backed up, find out what is on it, and hand somebody else a report. Each
 recipe below was run against `tests/fixtures/` before being written down.
 
-> **Before anything else, on a fresh install:** `pip install click`. Every
-> `flipperkit` command currently dies with `ModuleNotFoundError: No module named
-> 'click'` on a clean environment, because Typer stopped supplying click in
-> `0.26.0` and this package never declared it —
-> [#8](https://github.com/juandresrodca/FlipperKit/issues/8). One `pip install
-> click` fixes it for good; nothing else on this page is affected.
-
 ## Contents
 
 | Recipe | Use it when |

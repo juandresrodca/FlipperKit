@@ -9,20 +9,23 @@ patch releases will not.
 
 ## [Unreleased]
 
-Nothing in this section changes behaviour — everything released so far is in
-`0.1.0`. The entries below are the project scaffolding added since the tag.
+### Fixed
 
-### Known issues
-
-- **A fresh install cannot run any command.** `cli.py` imports `click` directly but
-  `pyproject.toml` never declared it; Typer supplied it transitively until `0.26.0`
-  dropped the dependency and vendored click privately. Every command now raises
-  `ModuleNotFoundError: No module named 'click'` on a clean environment, and the test
-  suite does not catch it because nothing exercises the entry point
-  ([#8](https://github.com/juandresrodca/FlipperKit/issues/8)). `pip install click`
-  is the workaround until `click` is declared.
+- **A fresh install could not run any command.** `cli.py` imports `click` directly
+  but `pyproject.toml` never declared it; Typer supplied it transitively until
+  `0.26.0` dropped the dependency and vendored click privately, so every command
+  raised `ModuleNotFoundError: No module named 'click'` on a clean environment.
+  `click>=8.0` is now a declared dependency, and a subprocess test exercises the
+  entry point so it cannot regress unseen
+  ([#8](https://github.com/juandresrodca/FlipperKit/issues/8)).
 
 ### Added
+
+- Continuous integration: the test suite runs on Linux, macOS and Windows across
+  Python 3.9–3.13, on every push and pull request, installing the package the way a
+  user would, so a missing dependency fails in CI rather than on someone's machine.
+- A subprocess test that runs `python -m flipperkit version` and `--help`, turning a
+  broken entry point into a failing test instead of a broken install.
 
 - `CONTRIBUTING.md`: repository layout, the hardware boundary, a worked example
   of adding a parser end to end, and the rule that every fixture must be

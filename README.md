@@ -31,9 +31,12 @@
 ```
 
 
-A companion command-line toolkit for the [Flipper Zero](https://flipperzero.one/).
-Back up the SD card, parse captured artifacts, index them into SQLite, and
-generate shareable reports — the things the  mobile app does poorly or not at all.
+A companion command-line toolkit for the [Flipper Zero](https://flipperzero.one/),
+tested on Linux, macOS and Windows. Back up the SD card, parse captured artifacts,
+index them into SQLite, and generate shareable reports — the things the mobile app
+does poorly or not at all.
+
+[![CI](https://github.com/juandresrodca/FlipperKit/actions/workflows/ci.yml/badge.svg)](https://github.com/juandresrodca/FlipperKit/actions/workflows/ci.yml)
 
 > **Built for engineers, not just users.** Where the official app lets you *use*
 > the device, FlipperKit treats what it captures  as **data to manage**: versioned
@@ -111,6 +114,21 @@ pip install -e ".[dev]"
 pytest
 ```
 
+## Quickstart — no Flipper needed
+
+Every command works on a folder of files, so you can run the whole pipeline on the
+bundled samples before you plug anything in:
+
+```bash
+flipperkit index tests/fixtures --db demo.db          # parse and index the samples
+flipperkit report --db demo.db -f html -o demo.html   # write a shareable report
+```
+
+Open `demo.html` in a browser to see the report. [docs/recipes.md](docs/recipes.md)
+assembles the same commands into real workflows — a dated weekly backup, the SQL
+that answers *what is new since last time*, and how to hand the contents of a card
+to somebody who does not have FlipperKit installed.
+
 ## Usage
 
 ```bash
@@ -143,18 +161,6 @@ The port is `COM3`-style on Windows, `/dev/cu.usbmodemflip_<name>1` on macOS and
 detail — udev rules and the ModemManager clash on Linux, `cu.` versus `tty.` on macOS,
 and what to check when `devices` finds nothing.
 
-[docs/recipes.md](docs/recipes.md) is the same commands assembled into workflows — a
-dated weekly backup, the SQL that answers *what is new since last time*, and how to
-hand the contents of a card to somebody who does not have FlipperKit installed.
-
-No device handy? The pipeline works on any folder of Flipper files. try it on
-the bundled samples:
-
-```bash
-flipperkit index tests/fixtures --db demo.db
-flipperkit report --db demo.db -f html -o demo.html
-```
-
 ## Supported artifacts
 
 | Extension | Category   | Extracted fields                        |
@@ -164,6 +170,10 @@ flipperkit report --db demo.db -f html -o demo.html
 | `.rfid`   | `rfid`     | key type, data                          |
 | `.ir`     | `infrared` | protocol, signal count, signal names    |
 | `.ibtn`   | `ibutton`  | protocol/key type, data                 |
+| `.u2f`    | `u2f`      | recognised; raw key/values only, no dedicated fields yet ([#6](https://github.com/juandresrodca/FlipperKit/issues/6)) |
+
+These are exactly the extensions `parsers.EXT_CATEGORY` recognises; anything else on
+the card is skipped.
 
 ## Architecture
 
