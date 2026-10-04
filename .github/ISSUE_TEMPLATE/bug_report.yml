@@ -88,10 +88,14 @@ body:
     attributes:
       label: Flipper firmware version (device bugs only)
       description: >
-        Settings → About on the device. Leave blank if no device was involved. Also paste
-        the full `flipperkit devices` output in the box above if the port is the problem —
-        that is the data [#1](https://github.com/juandresrodca/FlipperKit/issues/1) needs.
-      placeholder: Official 1.3.4, or Momentum 008
+        Settings → About on the device, with the firmware name — Official, Unleashed,
+        Momentum or Xtreme. Leave blank if no device was involved. Also paste the full
+        `flipperkit devices` output in the box above if the port is the problem — that is
+        the data [#1](https://github.com/juandresrodca/FlipperKit/issues/1) needs.
+
+        What FlipperKit requires of each firmware, and what has actually been tested, is
+        in [docs/compatibility.md](https://github.com/juandresrodca/FlipperKit/blob/master/docs/compatibility.md).
+      placeholder: Official 1.4.3, or Momentum mntm-012
 
   - type: textarea
     id: artifact

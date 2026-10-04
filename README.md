@@ -161,6 +161,12 @@ The port is `COM3`-style on Windows, `/dev/cu.usbmodemflip_<name>1` on macOS and
 detail — udev rules and the ModemManager clash on Linux, `cu.` versus `tty.` on macOS,
 and what to check when `devices` finds nothing.
 
+Running Unleashed, Momentum or Xtreme rather than the official firmware?
+[docs/compatibility.md](docs/compatibility.md) sets out exactly what FlipperKit asks of
+the firmware — three CLI commands and five file extensions — which of the four provide
+it, and which of that has actually been tested against hardware rather than read out of
+the firmware source.
+
 ## Supported artifacts
 
 | Extension | Category   | Extracted fields                        |
