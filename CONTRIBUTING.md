@@ -176,4 +176,7 @@ or email **juandresrodca@gmail.com** with `FlipperKit security` in the subject.
 
 ## Code of conduct
 
-Participation is governed by the [Code of Conduct](CODE_OF_CONDUCT.md).
+Participation is governed by the [Code of Conduct](CODE_OF_CONDUCT.md). A concern
+about someone's conduct goes to **juandresrodca@gmail.com**; the Code of Conduct's
+*Enforcement* section sets out what happens next. That is a separate route from the
+security mailbox above — same address, but say which one you mean in the subject.
