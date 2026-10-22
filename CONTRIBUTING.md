@@ -26,11 +26,33 @@ pytest
 `pytest` should be green on a machine with no device attached. If it is not,
 that is a bug worth an issue before you write anything else.
 
-There is **no CI yet** — issue
-[#5](https://github.com/juandresrodca/FlipperKit/issues/5) tracks adding it, and
-deciding a `ruff` baseline is part of it. Until that lands, nothing runs the
-suite for you when you open a pull request. Run it locally and say in the PR
-that you did.
+## What CI runs, and what it does not
+
+[`ci.yml`](.github/workflows/ci.yml) has run on every push to `master` and every
+pull request since 29 September. It installs exactly what `pyproject.toml`
+declares — `pip install -e ".[dev]"`, a clean resolve rather than a pinned
+lockfile, so a dependency nobody declared fails here instead of on a user's
+machine — and then runs `pytest`. Nine jobs: Python 3.9, 3.11 and 3.13 across
+`ubuntu-latest`, `macos-latest` and `windows-latest`, with `fail-fast` off so
+one red cell does not hide the other eight.
+
+Two caveats, because nothing else in the repository states them:
+
+- **The tested matrix is narrower than `requires-python = ">=3.9"` implies.**
+  3.10 and 3.12 are supported and not exercised. If your change leans on
+  behaviour that moved between minor versions, say so in the pull request — CI
+  will not find it for you.
+- **Nothing lints.** There is no formatter and no `[tool.ruff]` section, which is
+  the half of issue
+  [#5](https://github.com/juandresrodca/FlipperKit/issues/5) still open: choosing
+  a rule set commits someone to a cleanup pass, so it is a decision rather than a
+  chore. Until it lands, green CI means the tests passed and nothing more — keep
+  unrelated reformatting out of your diff yourself, as the pull request template
+  asks.
+
+Run `pytest` locally anyway, and say in the pull request that you did. A change
+whose author already knows it is green is quicker to review than one waiting on
+nine jobs to find out.
 
 ## The one architectural rule
 

@@ -220,8 +220,9 @@ the key material your captures came with.
 Most of this repository can be worked on **without a Flipper Zero** — the
 hardware boundary is one module and everything else is tested against files on
 disk. [CONTRIBUTING.md](CONTRIBUTING.md) has the setup, a worked example of
-adding a parser, and the rule that fixtures must be synthetic. Three open issues
-are labelled *good first issue*.
+adding a parser, the rule that fixtures must be synthetic, and what the CI badge
+above does and does not cover — nine `pytest` jobs, no linting. Three open
+issues are labelled *good first issue*.
 
 Participation is governed by the [Code of Conduct](CODE_OF_CONDUCT.md), and
 anything a user would notice belongs in [CHANGELOG.md](CHANGELOG.md) under
