@@ -19,11 +19,27 @@ patch releases will not.
   entry point so it cannot regress unseen
   ([#8](https://github.com/juandresrodca/FlipperKit/issues/8)).
 
+- **`CONTRIBUTING.md` told contributors no CI would run their changes.** It had said
+  so since before `ci.yml` landed on 29 September and was never updated, so a
+  first-time contributor had no reason to expect the suite to run at all. It now
+  describes the matrix that does run, and names the two caveats nothing else stated:
+  3.10 and 3.12 go untested, and no linter runs — the half of
+  [#5](https://github.com/juandresrodca/FlipperKit/issues/5) still open.
+
+- **`CODE_OF_CONDUCT.md` named four escalation tiers with nobody to report to.**
+  Both *Enforcement Responsibilities* and *Enforcement* were missing from the
+  shipped Contributor Covenant 2.1 text, leaving consequences stated and no address
+  to invoke them at, while the README and `CONTRIBUTING.md` both route participants
+  there. Both sections are restored, using the address `SECURITY.md` already
+  publishes and stating the conduct route as distinct from the security one.
+
 ### Added
 
-- Continuous integration: the test suite runs on Linux, macOS and Windows across
-  Python 3.9–3.13, on every push and pull request, installing the package the way a
-  user would, so a missing dependency fails in CI rather than on someone's machine.
+- Continuous integration: the test suite runs on every push and pull request across
+  nine jobs — Python 3.9, 3.11 and 3.13 on each of Linux, macOS and Windows —
+  installing the package the way a user would, so a missing dependency fails in CI
+  rather than on someone's machine. 3.10 and 3.12 are not in the matrix, although
+  `requires-python` admits them.
 - A subprocess test that runs `python -m flipperkit version` and `--help`, turning a
   broken entry point into a failing test instead of a broken install.
 
@@ -46,6 +62,12 @@ patch releases will not.
   reports, the two different JSON shapes `parse` and `report` emit, and scheduling
   on Task Scheduler and cron. Every recipe was run against `tests/fixtures/` before
   being written. Linked from the README usage section.
+- `docs/compatibility.md`: what FlipperKit actually asks of the firmware — three CLI
+  commands, five file extensions, and nothing that writes to the device — checked
+  against the official, Unleashed, Momentum and Xtreme sources, so a *which firmware
+  are you on* question can be answered before it is asked. Its tested-status table
+  states plainly that none of the four has a recorded end-to-end run against
+  hardware. Linked from the README usage section.
 - Terminal screenshots in the README, rendered as SVG under `docs/screenshots/`
   so they stay legible on both GitHub themes and cost no raster bytes.
 - This changelog.
