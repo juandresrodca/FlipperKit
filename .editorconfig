@@ -1,0 +1,45 @@
+# EditorConfig — https://editorconfig.org
+#
+# Nothing in this repository lints. There is no formatter and no [tool.ruff]
+# section, which is the half of issue #5 that is still a decision rather than a
+# chore: picking a rule set commits someone to a cleanup pass over 110 findings.
+#
+# This file is the part that needs no decision. It fixes what an editor gets
+# wrong on its own — encoding, line endings, indentation, a missing final
+# newline — so that what CONTRIBUTING.md asks for ("do not reformat files you
+# are not otherwise changing") does not depend on remembering to.
+#
+# Deliberately absent: max_line_length. The longest line in src/ today is 122
+# characters outside banner.py's embedded art, so any ruler set here would
+# either be wrong or be a reformatting instruction. That limit belongs with the
+# ruff baseline in #5, in pyproject.toml, where a linter can enforce it.
+
+root = true
+
+# Four spaces is the default because it is what src/, tests/, pyproject.toml
+# and the Rich-generated screenshots in docs/screenshots/ all already use.
+# LF matches `* text=auto eol=lf` in .gitattributes.
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# GitHub Actions and the issue forms under .github/ are two-space YAML.
+[*.{yml,yaml}]
+indent_size = 2
+
+# Markdown nests lists at two, and its two-space hard line break is
+# load-bearing — the README uses one.
+[*.md]
+indent_size = 2
+trim_trailing_whitespace = false
+
+# Flipper artifacts: the device's own `Key: value` text format, kept LF by
+# .gitattributes. These are the synthetic fixtures CONTRIBUTING.md requires, and
+# an editor has no business indenting or re-wrapping them.
+[*.{ir,nfc,rfid,sub}]
+indent_style = unset
+indent_size = unset

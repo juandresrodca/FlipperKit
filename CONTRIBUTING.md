@@ -48,7 +48,10 @@ Two caveats, because nothing else in the repository states them:
   a rule set commits someone to a cleanup pass, so it is a decision rather than a
   chore. Until it lands, green CI means the tests passed and nothing more — keep
   unrelated reformatting out of your diff yourself, as the pull request template
-  asks.
+  asks. [`.editorconfig`](.editorconfig) takes the mechanical half off your
+  hands if your editor reads it: UTF-8, LF, four spaces, a final newline, no
+  trailing whitespace. It deliberately sets no line length — that is the part
+  #5 still has to decide.
 
 Run `pytest` locally anyway, and say in the pull request that you did. A change
 whose author already knows it is green is quicker to review than one waiting on
@@ -166,9 +169,10 @@ directory full of other people's badge IDs would make that a lie.
   their flags are documented in the README and people have them in scripts.
   Adding a flag is easy; renaming one needs a reason.
 - Match the surrounding style: type hints, a docstring on public functions,
-  British or American spelling as the file already uses it. There is no
-  formatter configured yet — do not reformat files you are not otherwise
-  changing, as it buries the actual diff.
+  British or American spelling as the file already uses it. Only
+  [`.editorconfig`](.editorconfig) is enforced-by-convention; there is no
+  formatter — so do not reformat files you are not otherwise changing, as it
+  buries the actual diff.
 
 ## Reporting a bug
 
