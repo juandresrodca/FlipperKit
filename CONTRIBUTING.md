@@ -17,11 +17,44 @@ Python 3.9 or newer.
 git clone https://github.com/juandresrodca/FlipperKit
 cd FlipperKit
 python -m venv .venv
-. .venv/Scripts/activate      # Windows
-# source .venv/bin/activate   # macOS / Linux
+```
+
+Activate it with the entry point your shell understands — only its own will work.
+
+**Windows (PowerShell):**
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+If the execution policy refuses it, allow locally created scripts once, for your
+account only, then activate again:
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
+
+**Windows (cmd.exe):**
+
+```bat
+.venv\Scripts\activate.bat
+```
+
+**macOS / Linux — and Git Bash or WSL on Windows:**
+
+```bash
+source .venv/bin/activate
+```
+
+Then, with the environment active:
+
+```bash
 pip install -e ".[dev]"
 pytest
 ```
+
+If `python` is not found on Windows, the python.org installer did not add it to
+your `PATH`; use `py -3 -m venv .venv` and leave the rest as it is.
 
 `pytest` should be green on a machine with no device attached. If it is not,
 that is a bug worth an issue before you write anything else.

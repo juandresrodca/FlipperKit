@@ -108,11 +108,47 @@ environment. Add `[dev]` to also install the test dependencies (`pytest`):
 ```bash
 git clone https://github.com/juandresrodca/FlipperKit
 cd FlipperKit
-python -m venv .venv && . .venv/Scripts/activate   # Windows
-# source .venv/bin/activate                         # macOS / Linux
+python -m venv .venv
+```
+
+Then activate it. Each shell has its own entry point, and only its own will
+work:
+
+**Windows (PowerShell):**
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+A default workstation refuses `Activate.ps1` under its execution policy. Allow
+locally created scripts once, for your account only, then activate again:
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
+
+**Windows (cmd.exe):**
+
+```bat
+.venv\Scripts\activate.bat
+```
+
+**macOS / Linux — and Git Bash or WSL on Windows:**
+
+```bash
+source .venv/bin/activate
+```
+
+With the environment active, install and run the tests:
+
+```bash
 pip install -e ".[dev]"
 pytest
 ```
+
+On a default python.org install `python` is only on your `PATH` if the *Add
+python.exe to PATH* box was ticked. If it isn't, use `py -3 -m venv .venv` and
+leave everything else as it is.
 
 ## Quickstart — no Flipper needed
 
