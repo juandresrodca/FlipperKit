@@ -42,6 +42,12 @@ patch releases will not.
   `requires-python` admits them.
 - A subprocess test that runs `python -m flipperkit version` and `--help`, turning a
   broken entry point into a failing test instead of a broken install.
+- Dependabot watches the manifest itself: `pip` weekly for the dependencies
+  `pyproject.toml` declares, with minor and patch bumps grouped into one pull
+  request, and `github-actions` monthly for the versions `ci.yml` pins. Until now
+  nothing in the repository read the manifest between pushes — CI resolves it fresh
+  on every run, so an advisory against a declared dependency stayed invisible
+  unless a job happened to fail.
 
 - `CONTRIBUTING.md`: repository layout, the hardware boundary, a worked example
   of adding a parser end to end, and the rule that every fixture must be
