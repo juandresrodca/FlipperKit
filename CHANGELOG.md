@@ -76,6 +76,13 @@ patch releases will not.
   hardware. Linked from the README usage section.
 - Terminal screenshots in the README, rendered as SVG under `docs/screenshots/`
   so they stay legible on both GitHub themes and cost no raster bytes.
+- `.gitattributes` declares the raster and video types binary. The file
+  normalized everything to LF and named the four Flipper artifact extensions as
+  text, but carried no binary block at all, so the first PNG or MP4 added beside
+  the SVGs in `docs/screenshots/` would have relied on git sniffing a NUL byte in
+  its first 8,000 bytes to escape end-of-line normalization. Nothing is corrupt
+  today — the repository tracks no binary — which is why the declaration costs
+  nothing to add now and is expensive to add after the fact.
 - This changelog.
 
 ## [0.1.0] - 2026-07-17

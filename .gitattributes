@@ -6,3 +6,12 @@
 *.sub  text eol=lf
 *.rfid text eol=lf
 *.ir   text eol=lf
+
+# Binaries, declared before the first one lands so nothing depends on git
+# sniffing a NUL byte. docs/screenshots/ holds SVGs today; a raster screenshot
+# or a capture of the CLI dropped beside them would otherwise arrive undeclared
+# and have its CR bytes stripped by eol=lf, with no checksum to complain.
+*.png binary
+*.jpg binary
+*.gif binary
+*.mp4 binary
