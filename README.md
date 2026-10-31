@@ -39,7 +39,7 @@ does poorly or not at all.
 [![CI](https://github.com/juandresrodca/FlipperKit/actions/workflows/ci.yml/badge.svg)](https://github.com/juandresrodca/FlipperKit/actions/workflows/ci.yml)
 
 > **Built for engineers, not just users.** Where the official app lets you *use*
-> the device, FlipperKit treats what it captures  as **data to manage**: versioned
+> the device, FlipperKit treats what it captures as **data to manage**: versioned
 > backups, a searchable index, and reports you can hand to someone else.
 
 ```
@@ -51,13 +51,13 @@ does poorly or not at all.
 
 ## Why this exists
 
-The Flipper stores everything as small text  files on  its SD card (`.nfc`, `.sub`,
+The Flipper stores everything as small text files on its SD card (`.nfc`, `.sub`,
 `.rfid`, `.ir`, …). Over time that turns into an unsearchable pile. FlipperKit:
 
-- **Backs up** the SD card over the serial  CLI, skipping unchanged files.
-- **Parses** each artifact into a normalized  record (category, protocol, UID/key, frequency…).
-- **Indexes** records in SQLite, de-duplicated  by SHA-256.
-- **Reports** the collection as a clean HTML  page, Markdown table or JSON.
+- **Backs up** the SD card over the serial CLI, skipping unchanged files.
+- **Parses** each artifact into a normalized record (category, protocol, UID/key, frequency…).
+- **Indexes** records in SQLite, de-duplicated by SHA-256.
+- **Reports** the collection as a clean HTML page, Markdown table or JSON.
 
 ## Screenshots
 
@@ -94,15 +94,15 @@ changes take effect immediately — no reinstall needed. Then, from any director
 flipperkit --help
 ```
 
-> **Windows note:** the `flipperkit` command lands in your  Python `Scripts`
-> directory. If the shell can't find it, that directory isn't  on your `PATH`  
+> **Windows note:** the `flipperkit` command lands in your Python `Scripts`
+> directory. If the shell can't find it, that directory isn't on your `PATH`:
 > either add it, or run the tool with `python -m flipperkit ...`.
 >
 > **Uninstall:** `pip uninstall flipperkit`
 
 ### Isolated / dev install
 
-To keep FlipperKit and its dependencies out of your global Python , use a virtual
+To keep FlipperKit and its dependencies out of your global Python, use a virtual
 environment. Add `[dev]` to also install the test dependencies (`pytest`):
 
 ```bash
