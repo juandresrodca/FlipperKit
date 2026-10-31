@@ -33,7 +33,7 @@
 
 A companion command-line toolkit for the [Flipper Zero](https://flipperzero.one/),
 tested on Linux, macOS and Windows. Back up the SD card, parse captured artifacts,
-index them into SQLite, and generate shareable reports — the things the mobile app
+index them into SQLite, and generate shareable reports: the things the mobile app
 does poorly or not at all.
 
 [![CI](https://github.com/juandresrodca/FlipperKit/actions/workflows/ci.yml/badge.svg)](https://github.com/juandresrodca/FlipperKit/actions/workflows/ci.yml)
@@ -61,15 +61,15 @@ The Flipper stores everything as small text files on its SD card (`.nfc`, `.sub`
 
 ## Screenshots
 
-`flipperkit --help` — the dolphin banner and command list:
+`flipperkit --help`, the dolphin banner and command list:
 
 ![flipperkit --help](docs/screenshots/banner.svg)
 
-`flipperkit devices` — auto-detects and highlights your Flipper's serial port:
+`flipperkit devices`, which auto-detects and highlights your Flipper's serial port:
 
 ![flipperkit devices](docs/screenshots/devices.svg)
 
-`flipperkit parse ./backups` — captured artifacts parsed into a searchable table:
+`flipperkit parse ./backups`, with captured artifacts parsed into a searchable table:
 
 ![flipperkit parse](docs/screenshots/parse.svg)
 
@@ -88,7 +88,7 @@ pip install -e .
 ```
 
 The `-e` (editable) flag points the command at your source folder, so code
-changes take effect immediately — no reinstall needed. Then, from any directory:
+changes take effect immediately, no reinstall needed. Then, from any directory:
 
 ```bash
 flipperkit --help
@@ -133,7 +133,7 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 .venv\Scripts\activate.bat
 ```
 
-**macOS / Linux — and Git Bash or WSL on Windows:**
+**macOS and Linux, plus Git Bash or WSL on Windows:**
 
 ```bash
 source .venv/bin/activate
@@ -150,7 +150,7 @@ On a default python.org install `python` is only on your `PATH` if the *Add
 python.exe to PATH* box was ticked. If it isn't, use `py -3 -m venv .venv` and
 leave everything else as it is.
 
-## Quickstart — no Flipper needed
+## Quickstart, no Flipper needed
 
 Every command works on a folder of files, so you can run the whole pipeline on the
 bundled samples before you plug anything in:
@@ -161,7 +161,7 @@ flipperkit report --db demo.db -f html -o demo.html   # write a shareable report
 ```
 
 Open `demo.html` in a browser to see the report. [docs/recipes.md](docs/recipes.md)
-assembles the same commands into real workflows — a dated weekly backup, the SQL
+assembles the same commands into real workflows: a dated weekly backup, the SQL
 that answers *what is new since last time*, and how to hand the contents of a card
 to somebody who does not have FlipperKit installed.
 
@@ -194,12 +194,12 @@ flipperkit update          # pull and apply it
 
 The port is `COM3`-style on Windows, `/dev/cu.usbmodemflip_<name>1` on macOS and
 `/dev/ttyACM0` on Linux. [docs/serial-ports.md](docs/serial-ports.md) has the per-OS
-detail — udev rules and the ModemManager clash on Linux, `cu.` versus `tty.` on macOS,
+detail: udev rules and the ModemManager clash on Linux, `cu.` versus `tty.` on macOS,
 and what to check when `devices` finds nothing.
 
 Running Unleashed, Momentum or Xtreme rather than the official firmware?
 [docs/compatibility.md](docs/compatibility.md) sets out exactly what FlipperKit asks of
-the firmware — three CLI commands and five file extensions — which of the four provide
+the firmware (three CLI commands and five file extensions), which of the four provide
 it, and which of that has actually been tested against hardware rather than read out of
 the firmware source.
 
@@ -229,8 +229,8 @@ src/flipperkit/
 └── cli.py       # Typer CLI wiring it together
 ```
 
-The hardware boundary is deliberately thin and isolated. Everything else — parsing,
-indexing, reporting, even the recursive backup walk — is tested against in-memory
+The hardware boundary is deliberately thin and isolated. Everything else (parsing,
+indexing, reporting, even the recursive backup walk) is tested against in-memory
 data, so `pytest` runs green with no Flipper attached.
 
 ```bash
@@ -241,23 +241,23 @@ pytest
 
 FlipperKit is a **data-management tool for artifacts you have lawfully captured**
 from **your own devices** or from systems you are **explicitly authorized** to
-test. It does not exploit anything — it organizes files the Flipper already wrote.
+test. It does not exploit anything. It organizes files the Flipper already wrote.
 Cloning, replaying, or reading credentials you do not own may be illegal in your
 jurisdiction. Use it for learning, lab work, and authorized assessments only.
 
 [SECURITY.md](SECURITY.md) covers the other half of that: where the tool's own
-surface actually is — the backup destination path, the parsers, the Markdown
-renderer, `flipperkit update` — and how to report a problem in it privately. Worth a
+surface actually is (the backup destination path, the parsers, the Markdown
+renderer, `flipperkit update`) and how to report a problem in it privately. Worth a
 read before you point `--port` at anything, because your index and your reports hold
 the key material your captures came with.
 
 ## Contributing
 
-Most of this repository can be worked on **without a Flipper Zero** — the
+Most of this repository can be worked on **without a Flipper Zero**: the
 hardware boundary is one module and everything else is tested against files on
 disk. [CONTRIBUTING.md](CONTRIBUTING.md) has the setup, a worked example of
 adding a parser, the rule that fixtures must be synthetic, and what the CI badge
-above does and does not cover — nine `pytest` jobs, no linting. Three open
+above does and does not cover: nine `pytest` jobs, no linting. Three open
 issues are labelled *good first issue*.
 
 Participation is governed by the [Code of Conduct](CODE_OF_CONDUCT.md), and
