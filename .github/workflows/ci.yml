@@ -14,9 +14,19 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         python-version: ["3.9", "3.11", "3.13"]
+        # ubuntu-latest is now Ubuntu 26.04, and actions/python-versions has no 3.9
+        # build for it: 3.9 is end of life and its last build (3.9.25) ships for 22.04
+        # and 24.04 only. Keep the requires-python floor tested on the newest Ubuntu
+        # that still has it, and leave 3.11 and 3.13 on ubuntu-latest.
+        exclude:
+          - os: ubuntu-latest
+            python-version: "3.9"
+        include:
+          - os: ubuntu-24.04
+            python-version: "3.9"
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
       # A clean resolve of exactly what pyproject.toml asks for — the same thing a

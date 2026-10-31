@@ -67,7 +67,9 @@ declares — `pip install -e ".[dev]"`, a clean resolve rather than a pinned
 lockfile, so a dependency nobody declared fails here instead of on a user's
 machine — and then runs `pytest`. Nine jobs: Python 3.9, 3.11 and 3.13 across
 `ubuntu-latest`, `macos-latest` and `windows-latest`, with `fail-fast` off so
-one red cell does not hide the other eight.
+one red cell does not hide the other eight. The exception is 3.9 on Linux, which
+runs on `ubuntu-24.04`: `ubuntu-latest` is now Ubuntu 26.04, and `setup-python`
+has no 3.9 build for it.
 
 Two caveats, because nothing else in the repository states them:
 

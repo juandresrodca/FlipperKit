@@ -33,6 +33,13 @@ patch releases will not.
   there. Both sections are restored, using the address `SECURITY.md` already
   publishes and stating the conduct route as distinct from the security one.
 
+- **CI's Python 3.9 job on Linux has failed since late October.** `ubuntu-latest`
+  moved to Ubuntu 26.04, and `setup-python` has no 3.9 build for it: 3.9 is end of
+  life, and its last build (3.9.25) ships for Ubuntu 22.04 and 24.04 only, so the
+  job stopped before installing anything. It now runs on `ubuntu-24.04`, while 3.11
+  and 3.13 stay on `ubuntu-latest`. The same change moves `actions/checkout` and
+  `actions/setup-python` to v7.
+
 ### Added
 
 - Continuous integration: the test suite runs on every push and pull request across
