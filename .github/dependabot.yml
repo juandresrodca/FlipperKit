@@ -1,5 +1,20 @@
 version: 2
 updates:
+  # A floor watcher, not a patch treadmill. pyproject.toml declares unpinned floors
+  # (typer>=0.9, rich>=13.0, pyserial>=3.5, click>=8.0, and pytest>=7.0 in the dev
+  # extra) and the tree carries no lock file, so the declared ranges already admit
+  # every current release and there is nothing for Dependabot to bump. This entry
+  # raises a pull request only when a release leaves one of those ranges. For a
+  # library that is the intended state rather than a misconfiguration: pinning the
+  # floors or adding a lock file would change what the project ships, so it is a
+  # packaging decision and not a Dependabot one.
+  #
+  # The entry has produced nothing since it landed on 2026-10-29. The test costs one
+  # call: GET /repos/juandresrodca/FlipperKit/pulls?state=all&per_page=100 filtered
+  # to user.login == "dependabot[bot]" returns #13 and #14 only, both of them
+  # github-actions, both created 2026-10-29T07:14Z. Re-read on 2026-11-03, after the
+  # weekly Monday window of 2 November had passed. Run it again before concluding
+  # this entry is broken.
   - package-ecosystem: pip
     directory: "/"
     schedule:
@@ -10,12 +25,17 @@ updates:
     groups:
       # One pull request for the routine bumps keeps the queue readable for a project
       # whose review time is better spent on parsers than on separate typer and rich
-      # patch bumps. Covers the four runtime dependencies and the dev extra, both
-      # declared in pyproject.toml at the repository root.
+      # patch bumps. The pattern "*" with minor and patch update types describes how
+      # whatever this ecosystem does raise would be grouped. It is not a claim that
+      # the four runtime dependencies and the dev extra get bumped: see the note on
+      # the entry above for why they do not.
       all-pip:
         patterns: ["*"]
         update-types: ["minor", "patch"]
 
+  # This is the entry with evidence behind it. #13 and #14 arrived 43 seconds after
+  # the config was pushed on 2026-10-29, bumping actions/checkout 4 to 7 and
+  # actions/setup-python 5 to 7.
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
