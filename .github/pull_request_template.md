@@ -7,8 +7,9 @@ Closes #
 
 ## What you ran
 
-<!-- Paste the `pytest` output, or say which parts you could not run and why. There is no
-     CI yet (#5), so this is the only signal a reviewer gets. -->
+<!-- Paste the `pytest` output, or say which parts you could not run and why. CI runs the
+     suite on every pull request, but it never touches a Flipper and does not lint (#5),
+     so say what you checked yourself. -->
 
 ```
 ```
