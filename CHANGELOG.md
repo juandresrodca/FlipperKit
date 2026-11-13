@@ -26,6 +26,13 @@ patch releases will not.
   3.10 and 3.12 go untested, and no linter runs — the half of
   [#5](https://github.com/juandresrodca/FlipperKit/issues/5) still open.
 
+- **The pull request template still said there was no CI.** Its *What you ran* prompt
+  told contributors that local `pytest` output was the only signal a reviewer would
+  get, which stopped being true on 29 September and contradicted `CONTRIBUTING.md`.
+  It now says CI runs the suite on every pull request, and that it never touches a
+  Flipper and does not lint, so contributors should still say what they checked
+  themselves.
+
 - **`CODE_OF_CONDUCT.md` named four escalation tiers with nobody to report to.**
   Both *Enforcement Responsibilities* and *Enforcement* were missing from the
   shipped Contributor Covenant 2.1 text, leaving consequences stated and no address
